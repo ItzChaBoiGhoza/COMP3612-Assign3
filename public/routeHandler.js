@@ -67,7 +67,7 @@ const app = express();
     app.get('/api/painting/title/:text', (req, res) => {
         const searchedTitle = req.params.text.toLowerCase();
 
-        const paintingsByTitle = data.getPaintingsData().filter( painting => painting.title.toLowerCase().includes(searchedTitle));
+        const paintingsByTitle = data.getPaintingsData().filter(painting => painting.title.toLowerCase().includes(searchedTitle));
 
         if(paintingsByTitle.length > 0) {
             res.json(paintingsByTitle);
@@ -93,6 +93,19 @@ const app = express();
 app.get('/api/artists', (req, res) => {
     const artistsData = data.getArtistsData();
     res.json(artistsData);
+});
+
+//Return JSON for all artists from the specified country. This sould be case insensitive
+app.get('/api/artists/:country', (req, res) => {
+    const searchedCountry = req.params.country.toLowerCase();
+
+    const artistsByCountry = data.getArtistsData().filter(artist => artist.Nationality.toLowerCase().includes(searchedCountry));
+
+    if(artistsByCountry.length > 0) {
+        res.json(artistsByCountry);
+    } else {
+        res.json({'message': 'No artists found for the provided nationality'});
+    }
 });
 
 //endpoint for all the galleries functionality
