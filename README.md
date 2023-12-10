@@ -5,7 +5,7 @@
 
 ### Test links to for the API
 #### modern-upbeat-roadrunner.glitch.me/api/paintings
-#### modern-upbeat-roadrunner.glitch.me/api/paintings/433
+#### modern-upbeat-roadrunner.glitch.me/api/painting/433
 #### modern-upbeat-roadrunner.glitch.me/api/painting/43374534856
 #### modern-upbeat-roadrunner.glitch.me/api/painting/gallery/7
 #### modern-upbeat-roadrunner.glitch.me/api/painting/gallery/43374534856
