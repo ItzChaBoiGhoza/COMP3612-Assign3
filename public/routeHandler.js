@@ -9,7 +9,7 @@ app.get('/api/paintings', (req, res) => {
     res.json(paintingsData);
 });
 
-app.get('/api/paintings/:id', (req, res) => {
+app.get('/api/painting/:id', (req, res) => {
     const paintingId = parseInt(req.params.id);
     const painting = data.getPaintingsData().find(p => p.paintingID === paintingId);
 
@@ -19,6 +19,18 @@ app.get('/api/paintings/:id', (req, res) => {
         res.json({'message': 'No paintings found for the provided ID'});
     }
 });
+
+app.get('/api/painting/gallery/:id', (req, res) => {
+    const galleryId = parseInt(req.params.id);
+    const galleries = data.getPaintingsData().filter(painting => painting.gallery && painting.gallery.galleryID === galleryId);
+    // console.log(galleries);
+
+    if(galleries.length > 0) { 
+        res.json(galleries);
+    } else {
+        res.json({'message': 'No paintings found for the provided gallery ID'});
+    }
+})
 
 //endpoint for all the artists funtionality
 app.get('/api/artists', (req, res) => {
