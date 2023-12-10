@@ -4,12 +4,13 @@ const data = require('./dataProvider');
 const app = express();
 
 //endpoint for all the paintings funtionality
+    //Returns JSON for all paintings
     app.get('/api/paintings', (req, res) => {
         const paintingsData = data.getPaintingsData();
         res.json(paintingsData);
     });
 
-    //returns JSON for the single painting whose id matches the provided id
+    //Returns JSON for the single painting whose id matches the provided id
     app.get('/api/painting/:id', (req, res) => {
         const paintingId = parseInt(req.params.id);
         const painting = data.getPaintingsData().find(p => p.paintingID === paintingId);
@@ -90,29 +91,43 @@ const app = express();
     });
 
 //endpoint for all the artists funtionality
-app.get('/api/artists', (req, res) => {
-    const artistsData = data.getArtistsData();
-    res.json(artistsData);
-});
+    //Returns JSON for all artists
+    app.get('/api/artists', (req, res) => {
+        const artistsData = data.getArtistsData();
+        res.json(artistsData);
+    });
 
-//Return JSON for all artists from the specified country. This sould be case insensitive
-app.get('/api/artists/:country', (req, res) => {
-    const searchedCountry = req.params.country.toLowerCase();
+    //Return JSON for all artists from the specified country. This sould be case insensitive
+    app.get('/api/artists/:country', (req, res) => {
+        const searchedCountry = req.params.country.toLowerCase();
 
-    const artistsByCountry = data.getArtistsData().filter(artist => artist.Nationality.toLowerCase().includes(searchedCountry));
+        const artistsByCountry = data.getArtistsData().filter(artist => artist.Nationality.toLowerCase().includes(searchedCountry));
 
-    if(artistsByCountry.length > 0) {
-        res.json(artistsByCountry);
-    } else {
-        res.json({'message': 'No artists found for the provided nationality'});
-    }
-});
+        if(artistsByCountry.length > 0) {
+            res.json(artistsByCountry);
+        } else {
+            res.json({'message': 'No artists found for the provided country'});
+        }
+    });
 
 //endpoint for all the galleries functionality
-app.get('/api/galleries', (req, res) => {
-    const galleriesData = data.getGalleriesData();
-    res.json(galleriesData);
-})
+    //Returns JSON for all galleries
+    app.get('/api/galleries', (req, res) => {
+        const galleriesData = data.getGalleriesData();
+        res.json(galleriesData);
+    });
 
+    //Returns JSON for all galleries from the specified country. This should be case insensitive
+    app.get('/api/galleries/:country', (req, res) => {
+        const searchedCountry = req.params.country.toLowerCase();
 
+        const galleriesByCountry = data.getGalleriesData().filter(gallery => gallery.GalleryCountry.toLowerCase().includes(searchedCountry));
+
+        if(galleriesByCountry.length > 0) {
+            res.json(galleriesByCountry);
+        } else {
+            res.json({'message': 'No galleries found for the provided country'});
+        }
+    });
+    
 module.exports = app;
