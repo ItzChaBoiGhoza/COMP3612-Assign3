@@ -9,10 +9,16 @@ app.get('/api/paintings', (req, res) => {
     res.json(paintingsData);
 });
 
+app.get('/api/paintings/:id', (req, res) => {
+    const paintingId = parseInt(req.params.id);
+    const painting = data.getPaintingsData().find(p => p.paintingID === paintingId);
 
-
-
-
+    if(painting) {
+        res.json(painting);
+    } else {
+        res.json({'message': 'No paintings found for the provided ID'});
+    }
+});
 
 //endpoint for all the artists funtionality
 app.get('/api/artists', (req, res) => {
