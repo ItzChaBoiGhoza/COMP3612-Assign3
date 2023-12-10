@@ -3,7 +3,7 @@
 
 **Please view `COMP3612 Assignment 3.pdf` for instructions**
 
-### Test links to for the API
+### Test links for the API
 #### modern-upbeat-roadrunner.glitch.me/api/paintings
 #### modern-upbeat-roadrunner.glitch.me/api/painting/433
 #### modern-upbeat-roadrunner.glitch.me/api/painting/43374534856
