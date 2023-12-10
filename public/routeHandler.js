@@ -63,6 +63,32 @@ const app = express();
         }
     });
 
+    //Returns JSON for the paintings whose title contains (somewhere) the provided text. This search should be case sensitive
+    app.get('/api/painting/title/:text', (req, res) => {
+        const searchedTitle = req.params.text.toLowerCase();
+
+        const paintingsByTitle = data.getPaintingsData().filter( painting => painting.title.toLowerCase().includes(searchedTitle));
+
+        if(paintingsByTitle.length > 0) {
+            res.json(paintingsByTitle);
+        } else {
+            res.json({'message': 'No paintings found for the provided text'});
+        }
+    });
+
+    //Return JSON for the paintings that have a color that matches the provided hex value.This should be case insensitive
+    app.get('/api/painting/color/:name', (req, res) => {
+        const colourName = req.params.name.toLocaleLowerCase();
+
+        const paintingsByColourName = data.getPaintingsData().filter(painting => painting.details.annotation.dominantColors.some(color => color.name.toLocaleLowerCase() === colourName));
+
+        if(paintingsByColourName.length > 0){
+            res.json(paintingsByColourName);
+        } else {
+            res.json({'message': 'No paintings found for the provided colour name'});
+        }
+    });
+
 //endpoint for all the artists funtionality
 app.get('/api/artists', (req, res) => {
     const artistsData = data.getArtistsData();
